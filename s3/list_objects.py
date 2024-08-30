@@ -9,7 +9,7 @@ def filter_objects_extension(client, bucket, extension):
     
     return keys
 
-def filter_objects_keys(client, bucket, prefix=""):
+def list_object_keys(client, bucket, prefix=""):
     keys = []
     response = client.list_objects_v2(Bucket=bucket, Prefix=prefix)
     for content in response["Contents"]:
@@ -18,13 +18,14 @@ def filter_objects_keys(client, bucket, prefix=""):
     return keys
 
 
-s3 = boto3.client("s3")
+if __name__ == '__main__':
+    s3 = boto3.client("s3")
 
-response = filter_objects_keys(s3, "jsmith-boto3-08262024")
-print(response)
+    response = list_object_keys(s3, "jsmith-boto3-08262024")
+    print(response)
 
-response = filter_objects_extension(s3, "jsmith-boto3-08262024", "/")
-print(response)
+    response = filter_objects_extension(s3, "jsmith-boto3-08262024", "/")
+    print(response)
 
 
 
